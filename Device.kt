@@ -10,6 +10,9 @@ open class Device (private val name: String, private var status: Boolean, privat
     fun getColor(): String{ // Метод возвращающий цвет
         return color;
     }
+    fun setStatus(status: Boolean) {
+        this.status = status;
+    }
     override fun toString(): String{ // Получение полного описания объекта
         return "Имя: $name, Статус: $status, Цвет: $color";
     }
