@@ -12,4 +12,7 @@ fun main() {
     smartHome.changeBrightnessOrTemperature("Градусник", -15);
     smartHome.toStringDevice("Настольная лампа");
     smartHome.toStringDevice("Градусник");
+
+    smartHome.uploadedDevices(true); // Включение всех устройств
+    smartHome.uploadedDevices(false); // Выключение всех устройств
 }

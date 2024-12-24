@@ -16,10 +16,15 @@ class SmartHome {
     fun checkStatus(name: String){ // Проверка статуса
         println(findDevice(name).checkStatus());
     }
-    fun toStringDevice(name: String){ // Вывод всего устройства
-        println(findDevice(name).toString());
+    // Вывод всего устройства в зависимости от его типа
+    fun toStringDevice(name: String){
+        when (val dev = findDevice(name)){ // Если dev равен такому типу
+            is Light -> { println(dev.toString()); println("Вы вывели светящееся устройство"); }
+            is Thermostat -> { println(dev.toString()); println("Вы вывели нагревающееся устройство"); }
+        }
     }
-    fun changeBrightnessOrTemperature(name: String, changes: Int){ // Изменяем температуру или светлость
+    // Изменяем температуру или светлость в зависимости от типа
+    fun changeBrightnessOrTemperature(name: String, changes: Int){
         val dev = findDevice(name);
         if (dev is Light){
              dev.setBrightness(changes);
@@ -31,12 +36,21 @@ class SmartHome {
             println("Извините у этого устройства нечего изменять")
         }
     }
-    private fun findDevice(name: String): Device{ // Находим устройство
+    // Находим устройство
+    private fun findDevice(name: String): Device{
         for (dev in deviceList){
             if (dev.getName() == name){
                 return dev;
             }
         }
         return TODO("Не найдено"); // надо поменять
+    }
+    // Метод циклического обновления всех устройств (включение или выключения)
+    fun uploadedDevices(OnOrOff: Boolean){
+        val checkOnOrOff: String = if (OnOrOff) "включено" else "выключено";
+        for (dev in deviceList){
+            dev.setStatus(OnOrOff);
+            println("Устройство ${dev.getName()} включено, статус: ${dev.getStatus()}");
+        }
     }
 }

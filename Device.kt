@@ -13,7 +13,7 @@ open class Device (private val name: String, private var status: Boolean, privat
     fun setStatus(status: Boolean) {
         this.status = status;
     }
-    override fun toString(): String{ // Получение полного описания объекта
+    override fun toString(): String{ // Получение полного описания объекта // Переопределенный метод
         return "Имя: $name, Статус: $status, Цвет: $color";
     }
     open fun checkStatus(): String{
