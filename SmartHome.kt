@@ -56,7 +56,7 @@ class SmartHome {
         for (dev in deviceList){
             if (checkTempAndLight(dev.getName())){ // Проверка на температуру или свет
                 dev.setStatus(OnOrOff);
-                println("Устройство ${dev.getName()} включено, статус: ${dev.getStatus()}");
+                println("Устройство ${dev.getName()} $checkOnOrOff, статус: ${dev.getStatus()}");
             }
         }
     }
