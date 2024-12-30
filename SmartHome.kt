@@ -52,6 +52,7 @@ class SmartHome {
     }
     // Метод циклического обновления всех устройств (включение или выключения)
     fun uploadedDevices(OnOrOff: Boolean){
+        println();
         val checkOnOrOff: String = if (OnOrOff) "включено" else "выключено";
         for (dev in deviceList){
             if (checkTempAndLight(dev.getName())){ // Проверка на температуру или свет
@@ -88,5 +89,25 @@ class SmartHome {
             }
         }
         return true;
+    }
+    // Метод циклического обновления всех устройств
+    // по индексу (включение или выключения) // Шаг 7 задание 2
+    fun uploadedDevicesOfIndex(OnOrOff: Boolean){
+        println();
+        for (index in 0..deviceList.size - 1) {
+            if (checkTempAndLight(deviceList[index].getName())) {
+                deviceList[index].setStatus(OnOrOff);
+                println("Устройство ${deviceList[index].getName()} обновлено на ${OnOrOff}");
+
+            }
+        }
+    }
+    // Функция, которая принимает массив устройств
+    // и выводит их состояние в консоль. Шаг 7 Задача 3
+    fun checkingStatusDevices(vararg array: String){
+        println();
+        for (device in array){
+            println("Статус устройства ${findDevice(device).getName()}: ${findDevice(device).getStatus()}")
+        }
     }
 }

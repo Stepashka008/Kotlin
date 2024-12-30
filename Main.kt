@@ -19,4 +19,8 @@ fun main() {
 
     smartHome.uploadedDevices(true); // Включение всех устройств
     smartHome.uploadedDevices(false); // Выключение всех устройств
+
+    smartHome.uploadedDevicesOfIndex(true); // Включение всех устройств
+
+    smartHome.checkingStatusDevices(*arrayOf("Плита", "Настольная лампа", "Градусник")); // Вывод состояния устройства в консоль
 }
