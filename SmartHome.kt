@@ -41,7 +41,7 @@ class SmartHome {
             println("Извините у этого устройства нечего изменять")
         }
     }
-    // Находим устройство
+    // Находим устройство // Шаг 7 задача 4
     private fun findDevice(name: String): Device{
         for (dev in deviceList){
             if (dev.getName() == name){
@@ -108,6 +108,15 @@ class SmartHome {
         println();
         for (device in array){
             println("Статус устройства ${findDevice(device).getName()}: ${findDevice(device).getStatus()}")
+        }
+    }
+    // Создаём функцию, которая будет принимать переменное количество параметров
+    // настроек и применять их ко всем устройствам. Шаг 7 задача 5
+    fun changeColorAllDevice(vararg color: String){
+        var index: Int = 0;
+        for (col in color){
+            deviceList[index].setColor(col);
+            index++;
         }
     }
 }

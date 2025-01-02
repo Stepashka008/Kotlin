@@ -23,4 +23,11 @@ fun main() {
     smartHome.uploadedDevicesOfIndex(true); // Включение всех устройств
 
     smartHome.checkingStatusDevices(*arrayOf("Плита", "Настольная лампа", "Градусник")); // Вывод состояния устройства в консоль
+
+    println();
+    smartHome.changeColorAllDevice("Зеленый", "Синий", "Красный");
+    smartHome.toStringDevice("Плита");
+    smartHome.toStringDevice("Настольная лампа");
+    smartHome.toStringDevice("Градусник");
 }
+
