@@ -29,5 +29,13 @@ fun main() {
     smartHome.toStringDevice("Плита");
     smartHome.toStringDevice("Настольная лампа");
     smartHome.toStringDevice("Градусник");
+
+    println();
+    // Абстрактные классы
+    val lightTwo = LightTwo("Ночник", true, "Золотой", 50);
+    println(lightTwo.toStr());
+
+    val thermostatTwo = ThermostatTwo("Микроволновка", false, "Белый", 20);
+    println(thermostatTwo.toStr());
 }
 
