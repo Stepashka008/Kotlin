@@ -13,7 +13,7 @@ class SmartHome {
         checkTempAndLight(name); // Проверка на температуру или свет
     }
     fun changeStatus(name: String){ // Изменение статуса
-        findDevice(name).setStatus(!findDevice(name).getStatus());
+        findDevice(name).Status = !findDevice(name).Status;
     }
     fun checkStatus(name: String){ // Проверка статуса
         println(findDevice(name).checkStatus());
@@ -30,11 +30,11 @@ class SmartHome {
     fun changeBrightnessOrTemperature(name: String, changes: Int){
         val dev = findDevice(name);
         if (dev is Light){
-            dev.setBrightness(changes);
+            dev.Brightness = changes;
             checkTempAndLight(name); // Проверка на температуру или свет
         }
         else if (dev is Thermostat){
-            dev.setTemperature(changes);
+            dev.Temperature = changes;
             checkTempAndLight(name); // Проверка на температуру или свет
         }
         else{
@@ -44,7 +44,7 @@ class SmartHome {
     // Находим устройство // Шаг 7 задача 4
     private fun findDevice(name: String): Device{
         for (dev in deviceList){
-            if (dev.getName() == name){
+            if (dev.Name == name){
                 return dev;
             }
         }
@@ -55,9 +55,9 @@ class SmartHome {
         println();
         val checkOnOrOff: String = if (OnOrOff) "включено" else "выключено";
         for (dev in deviceList){
-            if (checkTempAndLight(dev.getName())){ // Проверка на температуру или свет
-                dev.setStatus(OnOrOff);
-                println("Устройство ${dev.getName()} $checkOnOrOff, статус: ${dev.getStatus()}");
+            if (checkTempAndLight(dev.Name)){ // Проверка на температуру или свет
+                dev.Status = OnOrOff;
+                println("Устройство ${dev.Name} $checkOnOrOff, статус: ${dev.Status}");
             }
         }
     }
@@ -65,26 +65,26 @@ class SmartHome {
     private fun checkTempAndLight(name: String): Boolean {
         val dev = findDevice(name);
         if (dev is Light){
-            if (dev.getBrightness() < 0){
-                dev.setStatus(false);
-                println("Света нету, статус устройства ${dev.getName()}: ${dev.getStatus()}")
+            if (dev.Brightness < 0){
+                dev.Status = false;
+                println("Света нету, статус устройства ${dev.Name}: ${dev.Status}")
                 return false
             }
-            else if (dev.getBrightness() > 100){
-                dev.setStatus(false);
-                println("Устройство сгорело, статус устройства ${dev.getName()}: ${dev.getStatus()}")
+            else if (dev.Brightness > 100){
+                dev.Status = false;
+                println("Устройство сгорело, статус устройства ${dev.Name}: ${dev.Status}")
                 return false;
             }
         }
         else if (dev is Thermostat){
-            if (dev.getTemperature() < -29){
-                dev.setStatus(false);
-                println("Устройство замерзло, статус устройства ${dev.getName()}: ${dev.getStatus()}")
+            if (dev.Temperature < -29){
+                dev.Status = false;
+                println("Устройство замерзло, статус устройства ${dev.Name}: ${dev.Status}")
                 return false
             }
-            else if (dev.getTemperature() > 120){
-                dev.setStatus(false);
-                println("Устройство расплавилось, статус устройства ${dev.getName()}: ${dev.getStatus()}")
+            else if (dev.Temperature > 120){
+                dev.Status = false;
+                println("Устройство расплавилось, статус устройства ${dev.Name}: ${dev.Status}")
                 return false;
             }
         }
@@ -95,9 +95,9 @@ class SmartHome {
     fun uploadedDevicesOfIndex(OnOrOff: Boolean){
         println();
         for (index in 0..deviceList.size - 1) {
-            if (checkTempAndLight(deviceList[index].getName())) {
-                deviceList[index].setStatus(OnOrOff);
-                println("Устройство ${deviceList[index].getName()} обновлено на ${OnOrOff}");
+            if (checkTempAndLight(deviceList[index].Name)) {
+                deviceList[index].Status = OnOrOff;
+                println("Устройство ${deviceList[index].Name} обновлено на ${OnOrOff}");
 
             }
         }
@@ -107,7 +107,7 @@ class SmartHome {
     fun checkingStatusDevices(vararg array: String){
         println();
         for (device in array){
-            println("Статус устройства ${findDevice(device).getName()}: ${findDevice(device).getStatus()}")
+            println("Статус устройства ${findDevice(device).Name}: ${findDevice(device).Status}")
         }
     }
     // Создаём функцию, которая будет принимать переменное количество параметров
@@ -115,7 +115,7 @@ class SmartHome {
     fun changeColorAllDevice(vararg color: String){
         var index: Int = 0;
         for (col in color){
-            deviceList[index].setColor(col);
+            deviceList[index].Color = col;
             index++;
         }
     }
