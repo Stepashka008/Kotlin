@@ -10,7 +10,7 @@ open class Device() {
         this.color = color;
     }
     // Реализуем Геттеры и Сеттеры
-    var Name: String
+    var Name: String // Свойство
         set(value) {
             var checking = true;
             val noNeedSymbols = "!@#$%^&*()_+=-{}[]0987654321"
@@ -18,7 +18,6 @@ open class Device() {
                 for (noSymbol in noNeedSymbols){
                     if (symbol == noSymbol){
                         checking = false;
-                        println("Недопустимый символ в имени")
                         break@loop;
                     }
                 }
@@ -32,13 +31,13 @@ open class Device() {
         }
         get() = name;
 
-    var Status: Boolean
+    var Status: Boolean // Свойство
         set(value){
             status = value;
         }
         get() = status;
 
-    var Color: String
+    var Color: String // Свойство
         set(value){
             color = value;
         }
@@ -48,6 +47,7 @@ open class Device() {
     override fun toString(): String{ // Получение полного описания объекта // Переопределенный метод
         return "Имя: $name, Статус: $status, Цвет: $color";
     }
+    // Добавляем дополнительный метод для переопределения функционала классов при их наследовании // Шаг 8 задача 5
     open fun checkStatus(): String{
         if (status) return "$name: включен";
         return "$name: выключен";

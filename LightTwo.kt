@@ -5,7 +5,7 @@ class LightTwo (name: String, status: Boolean, color: String) : SmartDevice(name
         this.light = light;
     }
     // Геттер и Сеттер
-    var Light: Int
+    var Light: Int // Свойство
         set(value) {
             if (value > 100){
                 println("При такой светлости устройство взорвётся, мы сделаем его светлость на 100")

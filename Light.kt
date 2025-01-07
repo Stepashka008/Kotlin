@@ -1,4 +1,4 @@
-class Light (name: String, status: Boolean, color: String) : Device(name, status, color){ // Наследуем базовый класс
+class Light (name: String, status: Boolean, color: String) : Device(name, status, color), Controllable{ // Наследуем базовый класс
 
     private var brightness: Int = 0;
     // this - Передаем аргументы основному конструктору
@@ -6,7 +6,7 @@ class Light (name: String, status: Boolean, color: String) : Device(name, status
         this.brightness = brightness;
     }
 
-    var Brightness: Int
+    var Brightness: Int // Свойство
         set(value) {
             if (value > 100){
                 println("При такой светлости устройство взорвётся, мы сделаем его светлость на 100")
@@ -25,8 +25,17 @@ class Light (name: String, status: Boolean, color: String) : Device(name, status
     override fun toString(): String{
         return super.toString() + ", Светлость: $brightness";
     }
+    // Добавляем дополнительный метод для переопределения функционала классов при их наследовании // Шаг 8 задача 5
     override fun checkStatus(): String{
         if (Status) return "$Name: включен";
         return "$Name: выключен";
+    }
+    // Переписываем все интерфейсы для работы в стиле Kotlin // Шаг 8 задача 4
+    // Реализуем методы интерфейса
+    override fun getting(): Int {
+        return brightness
+    }
+    override fun setting(field: Int) {
+        this.brightness = field;
     }
 }

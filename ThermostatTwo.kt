@@ -5,7 +5,7 @@ class ThermostatTwo(name: String, status: Boolean, color: String) : SmartDevice(
         this.temperature = temperature;
     }
     // Геттер и Сеттер
-    var Temperature: Int
+    var Temperature: Int // Свойство
         set(value) {
             if (value > 100){
                 println("При такой температуре устройство расплавиться, мы сделаем его температуру на 99")
