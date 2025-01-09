@@ -13,10 +13,10 @@ class SmartHome {
         checkTempAndLight(name); // Проверка на температуру или свет
     }
     fun changeStatus(name: String){ // Изменение статуса
-        findDevice(name).Status = !findDevice(name).Status;
+        findDevice(name)?.Status = !findDevice(name)?.Status!!;
     }
     fun checkStatus(name: String){ // Проверка статуса
-        println(findDevice(name).checkStatus());
+        println(findDevice(name)?.checkStatus());
     }
     // Вывод всего устройства в зависимости от его типа
     fun toStringDevice(name: String){
@@ -28,27 +28,26 @@ class SmartHome {
     }
     // Изменяем температуру или светлость в зависимости от типа
     fun changeBrightnessOrTemperature(name: String, changes: Int){
-        val dev = findDevice(name);
-        if (dev is Light){
-            dev.Brightness = changes;
-            checkTempAndLight(name); // Проверка на температуру или свет
-        }
-        else if (dev is Thermostat){
-            dev.Temperature = changes;
-            checkTempAndLight(name); // Проверка на температуру или свет
-        }
-        else{
-            println("Извините у этого устройства нечего изменять")
-        }
+        findDevice(name)?.let { dev ->
+            when (dev) {
+                is Light -> {
+                    dev.Brightness = changes
+                    checkTempAndLight(name)
+                }
+                is Thermostat -> {
+                    dev.Temperature = changes
+                    checkTempAndLight(name)
+                }
+                else -> println("Извините у этого устройства нечего изменять")
+            }
+        } ?: println("Устройство не найдено")
     }
     // Находим устройство // Шаг 7 задача 4
-    private fun findDevice(name: String): Device{
+    private fun findDevice(name: String): Device? {
         for (dev in deviceList){
-            if (dev.Name == name){
-                return dev;
-            }
+            if (dev.Name == name) return dev;
         }
-        return TODO("Не найдено"); // надо поменять
+        return null;
     }
     // Метод циклического обновления всех устройств (включение или выключения)
     fun uploadedDevices(OnOrOff: Boolean){
@@ -63,29 +62,31 @@ class SmartHome {
     }
     // Метод отключения устройства при определенных условиях
     private fun checkTempAndLight(name: String): Boolean {
-        val dev = findDevice(name);
-        if (dev is Light){
-            if (dev.Brightness < 0){
-                dev.Status = false;
-                println("Света нету, статус устройства ${dev.Name}: ${dev.Status}")
-                return false
-            }
-            else if (dev.Brightness > 100){
-                dev.Status = false;
-                println("Устройство сгорело, статус устройства ${dev.Name}: ${dev.Status}")
-                return false;
-            }
-        }
-        else if (dev is Thermostat){
-            if (dev.Temperature < -29){
-                dev.Status = false;
-                println("Устройство замерзло, статус устройства ${dev.Name}: ${dev.Status}")
-                return false
-            }
-            else if (dev.Temperature > 120){
-                dev.Status = false;
-                println("Устройство расплавилось, статус устройства ${dev.Name}: ${dev.Status}")
-                return false;
+        findDevice(name)?.let { dev ->
+            when (dev) {
+                is Light -> {
+                    if (dev.Brightness < 0) {
+                        dev.Status = false;
+                        println("Света нету, статус устройства ${dev.Name}: ${dev.Status}")
+                        return false
+                    } else if (dev.Brightness > 100) {
+                        dev.Status = false;
+                        println("Устройство сгорело, статус устройства ${dev.Name}: ${dev.Status}")
+                        return false;
+                    }
+                }
+
+                is Thermostat -> {
+                    if (dev.Temperature < -29) {
+                        dev.Status = false;
+                        println("Устройство замерзло, статус устройства ${dev.Name}: ${dev.Status}")
+                        return false
+                    } else if (dev.Temperature > 120) {
+                        dev.Status = false;
+                        println("Устройство расплавилось, статус устройства ${dev.Name}: ${dev.Status}")
+                        return false;
+                    }
+                }
             }
         }
         return true;
@@ -107,7 +108,7 @@ class SmartHome {
     fun checkingStatusDevices(vararg array: String){
         println();
         for (device in array){
-            println("Статус устройства ${findDevice(device).Name}: ${findDevice(device).Status}")
+            println("Статус устройства ${findDevice(device)?.Name}: ${findDevice(device)?.Status}")
         }
     }
     // Создаём функцию, которая будет принимать переменное количество параметров
